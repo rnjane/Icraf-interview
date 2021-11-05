@@ -36,3 +36,12 @@ class AssignUserToRole(views.APIView):
         role.user_set.add(user)
         serialized_user = UserSerializer(user)
         return JsonResponse(serialized_user.data)
+
+class ListAllPermissions(generics.ListAPIView):
+    serializer_class = serializers.PermissionsSerializer
+    queryset = models.Permission.objects.all()
+
+
+class ListAllContentTypes(generics.ListAPIView):
+    serializer_class = serializers.ContentTypeSerializer
+    queryset = models.ContentType.objects.all()

@@ -7,6 +7,11 @@ class PermissionsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ContentTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ContentType
+        fields = '__all__'
+
 class RolesSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Role
