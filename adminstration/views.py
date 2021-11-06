@@ -2,7 +2,7 @@ from authentication.models import User
 from authentication.serializers import UserSerializer
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from rest_framework import generics, views, permissions
+from rest_framework import generics, permissions, views
 
 from adminstration.models import Role
 
@@ -29,6 +29,7 @@ class UserCreate(generics.CreateAPIView):
 
 class AssignUserToRole(views.APIView):
     permission_classes = (permissions.IsAdminUser,)
+
     def post(self, request, user_id):
         role_id = request.data.get("role_id")
         role = get_object_or_404(Role, pk=role_id)
@@ -36,6 +37,7 @@ class AssignUserToRole(views.APIView):
         role.user_set.add(user)
         serialized_user = UserSerializer(user)
         return JsonResponse(serialized_user.data)
+
 
 class ListAllPermissions(generics.ListAPIView):
     serializer_class = serializers.PermissionsSerializer
@@ -45,3 +47,8 @@ class ListAllPermissions(generics.ListAPIView):
 class ListAllContentTypes(generics.ListAPIView):
     serializer_class = serializers.ContentTypeSerializer
     queryset = models.ContentType.objects.all()
+
+
+class ListAllRoles(generics.ListAPIView):
+    serializer_class = serializers.RolesSerializer
+    queryset = models.Role.objects.all()

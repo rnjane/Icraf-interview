@@ -8,4 +8,5 @@ urlpatterns = [
     path('add-user/', views.UserCreate.as_view(), name='register'),
     path('list-all-permissions/', views.ListAllPermissions.as_view(), name='list_all_permissions'),
     path('list-content-types/', views.ListAllContentTypes.as_view(), name='list_all_content-types'),
+    path('list-roles/', views.ListAllRoles.as_view(), name='list_all_roles'),
 ]
